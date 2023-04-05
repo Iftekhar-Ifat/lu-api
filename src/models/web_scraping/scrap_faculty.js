@@ -16,7 +16,7 @@ async function scrap_faculty(department) {
     const browser = await stats.puppeteer.launch({
         executablePath,
         args: ["--no-sandbox"],
-        headless: false,
+        headless: true,
         ignoreHTTPSErrors: true,
         ignoreDefaultArgs: true,
     });

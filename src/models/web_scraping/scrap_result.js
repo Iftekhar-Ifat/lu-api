@@ -18,7 +18,7 @@ async function scrap_result(studentID, studentDate) {
     const browser = await stats.puppeteer.launch({
         executablePath,
         args: ["--no-sandbox"],
-        headless: false,
+        headless: true,
         ignoreHTTPSErrors: true,
         ignoreDefaultArgs: true,
     });
