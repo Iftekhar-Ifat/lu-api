@@ -1,20 +1,21 @@
 require("dotenv").config();
-const edgeChromium = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer-core");
+const PCR = require("puppeteer-chromium-resolver");
 const get_faculty = require("../database_calls/get_faculty");
 const set_faculty = require("../database_calls/set_faculty");
 
 const LOCAL_CHROME_EXECUTABLE = process.env.CHROMIUM_PATH;
 
 async function scrap_faculty(department) {
+    const options = {};
+    const stats = await PCR(options);
+
     const URL = `https://www.lus.ac.bd/faculty-of-${department}/`;
 
-    const executablePath =
-        (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
+    const executablePath = await stats.executablePath;
 
-    const browser = await puppeteer.launch({
+    const browser = await stats.puppeteer.launch({
         executablePath,
-        args: edgeChromium.args,
+        args: ["--disable-application-cache", "--disable-cache"],
         headless: true,
         ignoreHTTPSErrors: true,
     });
@@ -46,6 +47,7 @@ async function scrap_faculty(department) {
             allFaculty.push(eachFaculty);
         }
         await set_faculty(department, allFaculty);
+        await page.setCacheEnabled(false);
         await browser.close();
 
         return allFaculty;

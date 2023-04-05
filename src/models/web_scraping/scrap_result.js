@@ -1,6 +1,5 @@
 require("dotenv").config();
-const edgeChromium = require("chrome-aws-lambda");
-const puppeteer = require("puppeteer-core");
+const PCR = require("puppeteer-chromium-resolver");
 const set_result = require("../database_calls/set_result");
 const get_result = require("../database_calls/get_result");
 
@@ -10,14 +9,15 @@ let publicResult = {};
 let privateResult = {};
 
 const LOCAL_CHROME_EXECUTABLE = process.env.CHROMIUM_PATH;
-
 async function scrap_result(studentID, studentDate) {
-    const executablePath =
-        (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
+    const options = {};
+    const stats = await PCR(options);
 
-    const browser = await puppeteer.launch({
+    const executablePath = await stats.executablePath;
+
+    const browser = await stats.puppeteer.launch({
         executablePath,
-        args: edgeChromium.args,
+        args: ["--disable-application-cache", "--disable-cache"],
         headless: true,
         ignoreHTTPSErrors: true,
     });
@@ -91,6 +91,7 @@ async function scrap_result(studentID, studentDate) {
                 privateResult[`year_${numberOfYear}`] = allSemesterInAYear;
             }
         }
+        await page.setCacheEnabled(false);
         await browser.close();
         await set_result(studentID, {
             public: publicResult,
@@ -98,6 +99,7 @@ async function scrap_result(studentID, studentDate) {
         });
         return { public: publicResult, private: privateResult };
     } catch (error) {
+        console.log("first");
         return await get_result(studentID, studentDate);
     }
 }
