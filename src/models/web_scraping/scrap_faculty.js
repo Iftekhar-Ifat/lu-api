@@ -1,9 +1,10 @@
+require("dotenv").config();
 const edgeChromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
 const get_faculty = require("../database_calls/get_faculty");
 const set_faculty = require("../database_calls/set_faculty");
 
-const LOCAL_CHROME_EXECUTABLE = `C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe`;
+const LOCAL_CHROME_EXECUTABLE = process.env.CHROMIUM_PATH;
 
 async function scrap_faculty(department) {
     const URL = `https://www.lus.ac.bd/faculty-of-${department}/`;
