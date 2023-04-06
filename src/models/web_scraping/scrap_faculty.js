@@ -51,6 +51,8 @@ async function scrap_faculty(department) {
         return allFaculty;
     } catch (error) {
         return await get_faculty(department);
+    } finally {
+        await browser.close();
     }
 }
 
