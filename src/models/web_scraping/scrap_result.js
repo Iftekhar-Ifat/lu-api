@@ -1,5 +1,5 @@
 require("dotenv").config();
-const PCR = require("puppeteer-chromium-resolver");
+const puppeteer = require("puppeteer");
 const set_result = require("../database_calls/set_result");
 const get_result = require("../database_calls/get_result");
 
@@ -8,19 +8,18 @@ const URL = "https://www.lus.ac.bd/result/";
 let publicResult = {};
 let privateResult = {};
 
-const LOCAL_CHROME_EXECUTABLE = process.env.CHROMIUM_PATH;
 async function scrap_result(studentID, studentDate) {
-    const options = {};
-    const stats = await PCR(options);
-
-    const executablePath = await stats.executablePath;
-
-    const browser = await stats.puppeteer.launch({
-        executablePath,
-        args: ["--no-sandbox"],
-        headless: true,
-        ignoreHTTPSErrors: true,
-        ignoreDefaultArgs: true,
+    const browser = await puppeteer.launch({
+        args: [
+            "--disable-setuid-sandbox",
+            "--no-sandbox",
+            "--single-process",
+            "--no-zygote",
+        ],
+        executablePath:
+            process.env.NODE_ENV === "production"
+                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                : puppeteer.executablePath(),
     });
     const page = await browser.newPage();
     try {
@@ -92,7 +91,6 @@ async function scrap_result(studentID, studentDate) {
                 privateResult[`year_${numberOfYear}`] = allSemesterInAYear;
             }
         }
-        await page.setCacheEnabled(false);
         await browser.close();
         await set_result(studentID, {
             public: publicResult,
@@ -100,7 +98,6 @@ async function scrap_result(studentID, studentDate) {
         });
         return { public: publicResult, private: privateResult };
     } catch (error) {
-        console.log("first");
         return await get_result(studentID, studentDate);
     }
 }

@@ -1,24 +1,22 @@
 require("dotenv").config();
-const PCR = require("puppeteer-chromium-resolver");
+const puppeteer = require("puppeteer");
 const get_faculty = require("../database_calls/get_faculty");
 const set_faculty = require("../database_calls/set_faculty");
 
-const LOCAL_CHROME_EXECUTABLE = process.env.CHROMIUM_PATH;
-
 async function scrap_faculty(department) {
-    const options = {};
-    const stats = await PCR(options);
-
     const URL = `https://www.lus.ac.bd/faculty-of-${department}/`;
 
-    const executablePath = await stats.executablePath;
-
-    const browser = await stats.puppeteer.launch({
-        executablePath,
-        args: ["--no-sandbox"],
-        headless: true,
-        ignoreHTTPSErrors: true,
-        ignoreDefaultArgs: true,
+    const browser = await puppeteer.launch({
+        args: [
+            "--disable-setuid-sandbox",
+            "--no-sandbox",
+            "--single-process",
+            "--no-zygote",
+        ],
+        executablePath:
+            process.env.NODE_ENV === "production"
+                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                : puppeteer.executablePath(),
     });
     const page = await browser.newPage();
 
@@ -48,7 +46,6 @@ async function scrap_faculty(department) {
             allFaculty.push(eachFaculty);
         }
         await set_faculty(department, allFaculty);
-        await page.setCacheEnabled(false);
         await browser.close();
 
         return allFaculty;
