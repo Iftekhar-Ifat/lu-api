@@ -58,11 +58,11 @@
                 Leading University API
             </div>
             <div>
-                LU API is a REST API that provides access to data scraped from
-                Leading University's website. The data is cached, ensuring
-                uninterrupted access even if the Leading University's website is
-                down or if it takes more than 7s to access Leading University's
-                website.
+                The Leading University API is a REST API that provides access to
+                data scraped from the Leading University website. The data is
+                cached, ensuring continuous access even if the Leading
+                University's website is unavailable or takes more than 7 seconds
+                to load.
             </div>
             <div class="p-6">
                 <h2 class="text-3xl font-semibold mb-4">
@@ -134,25 +134,25 @@
                 >
                 <p class="font-semibold mb-2">Example Request:</p>
                 <code class="bg-gray-200 rounded-lg px-2 py-1 mb-4 block"
-                    >GET http://localhost:8080/api/result/2012020302</code
+                    >GET http://localhost:8080/api/result/2012020106</code
                 >
                 <p class="font-semibold mb-2">Example Response:</p>
                 <pre class="overflow-auto bg-gray-200 rounded-lg p-4 text-sm">
-        {
-          "result": {
-            "public": {
-              "student_id": "2012020302",
-              "semester": "Spring-2020",
-              "cgpa": "3.54",
-              "grade": "A-",
-              "credit_completed": "113",
-              "name": "Iftekhar Ahmed",
-              "program": "B.Sc. (Honours) in Computer Science & Engineering",
-              "department": "Computer Science & Engineering"
-            },
-            "private": {}
-          }
-        }
+                    {
+                        "result": {
+                          "public": {
+                            "student_id": "2012020106",
+                            "semester": "Spring-2020",
+                            "cgpa": "3.76",
+                            "grade": "A",
+                            "credit_completed": "116",
+                            "name": "Md. Mahdi Hossain Hira",
+                            "program": "B.Sc. (Honours) in Computer Science & Engineering",
+                            "department": "Computer Science & Engineering"
+                          },
+                          "private": {}
+                        }
+                      } 
             </pre
                 >
             </div>
@@ -171,25 +171,107 @@
                 <p class="font-semibold mb-2">Example Request:</p>
                 <code class="bg-gray-200 rounded-lg px-2 py-1 mb-4 block"
                     >GET
-                    http://localhost:8080/api/result/2012020302/2001-02-20</code
+                    http://localhost:8080/api/result/2012020106/05-01-2002</code
                 >
                 <p class="font-semibold mb-2">Example Response:</p>
                 <pre class="overflow-auto bg-gray-200 rounded-lg p-4 text-sm">
-        {
-          "result": {
-            "public": {
-              "student_id": "2012020302",
-              "semester": "Spring-2020",
-              "cgpa": "3.54",
-              "grade": "A-",
-              "credit_completed": "113",
-              "name": "Iftekhar Ahmed",
-              "program": "B.Sc. (Honours) in Computer Science & Engineering",
-              "department": "Computer Science & Engineering"
-            },
-            "private": {}
-          }
-        }
+                    {
+                        "result": {
+                          "public": {
+                            "student_id": "2012020106",
+                            "semester": "Spring-2020",
+                            "cgpa": "3.76",
+                            "grade": "A",
+                            "credit_completed": "116",
+                            "name": "Md. Mahdi Hossain Hira",
+                            "program": "B.Sc. (Honours) in Computer Science & Engineering",
+                            "department": "Computer Science & Engineering"
+                          },
+                          "private": {
+                            "year_1": {
+                              "spring_2020": [
+                                {
+                                  "course_code": "CEE-2110",
+                                  "course_title": "Engineering Drawing",
+                                  "credit": "1.5",
+                                  "gp": "3.5",
+                                  "grade": "A-"
+                                },
+                                {
+                                  "course_code": "CSE-1111",
+                                  "course_title": "Introduction to Computers",
+                                  "credit": "2.0",
+                                  "gp": "4.0",
+                                  "grade": "A+"
+                                },
+                                {
+                                  "course_code": "MAT-1111",
+                                  "course_title": "Differential & Integral Calculus",
+                                  "credit": "3.0",
+                                  "gp": "4.0",
+                                  "grade": "A+"
+                                },
+                                {
+                                  "course_code": "CHE-2311",
+                                  "course_title": "Chemistry",
+                                  "credit": "2.0",
+                                  "gp": "3.5",
+                                  "grade": "A-"
+                                },
+                                {
+                                  "course_code": "CSE-1112",
+                                  "course_title": "Introduction to Computers:Sessional",
+                                  "credit": "1.0",
+                                  "gp": "4.0",
+                                  "grade": "A+"
+                                },
+                                {
+                                  "course_code": "ENG-1111",
+                                  "course_title": "English Reading & Speaking",
+                                  "credit": "3.0",
+                                  "gp": "4.0",
+                                  "grade": "A+"
+                                },
+                                {
+                                  "course_code": "CHE-2312",
+                                  "course_title": "Chemistry: Sessional",
+                                  "credit": "1.0",
+                                  "gp": "3.75",
+                                  "grade": "A"
+                                }
+                              ],
+                              "summer_2020": [
+                                {
+                                  "course_code": "ART-1311",
+                                  "course_title": "Introduction to Sociology",
+                                  "credit": "3.0",
+                                  "gp": "2.75",
+                                  "grade": "B-"
+                                },
+                                {
+                                  "course_code": "CSE-1213",
+                                  "course_title": "Computer Programming",
+                                  "credit": "3.0",
+                                  "gp": "3.75",
+                                  "grade": "A"
+                                },
+                                {
+                                  "course_code": "CSE-1214",
+                                  "course_title": "Computer Programming Sessional",
+                                  "credit": "1.0",
+                                  "gp": "2.5",
+                                  "grade": "C+"
+                                },
+                                {
+                                  "course_code": "CSE-1215",
+                                  "course_title": "Discrete Mathematics",
+                                  "credit": "3.0",
+                                  "gp": "3.5",
+                                  "grade": "A-"
+                                }
+                              ],
+                              .....
+                       
             </pre
                 >
             </div>
