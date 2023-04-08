@@ -1,7 +1,8 @@
 require("dotenv").config;
 const { MongoClient } = require("mongodb");
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGO_PASS = encodeURIComponent(process.env.MONGO_PASS);
+const MONGODB_URI = process.env.MONGODB_URI.replace('<password>', MONGO_PASS);
 const MONGODB_DB = process.env.DB_NAME;
 
 // check the MongoDB URI
@@ -35,6 +36,7 @@ async function connectToDatabase() {
 
     // Connect to cluster
     const client = await MongoClient.connect(MONGODB_URI, opts);
+    console.log("Connected to MongoDB");
     const db = await client.db(MONGODB_DB);
 
     // set cache
