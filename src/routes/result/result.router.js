@@ -6,6 +6,7 @@ const resultRouter = express.Router();
 resultRouter.get("/api/result/:std_id", async (req, res) => {
     const studentID = req.params.std_id;
     try {
+        console.log("Student ID: ", studentID);
         await scrap_result(studentID)
             .then((response) => {
                 res.status(200).send({ result: response });
@@ -22,6 +23,8 @@ resultRouter.get("/api/result/:std_id/:date", async (req, res) => {
     const studentID = req.params.std_id;
     const studentDate = req.params.date;
     try {
+        console.log("Student ID: ", studentID);
+        console.log("Student Date: ", studentDate);
         await scrap_result(studentID, studentDate)
             .then((response) => {
                 res.status(200).send({ result: response });
