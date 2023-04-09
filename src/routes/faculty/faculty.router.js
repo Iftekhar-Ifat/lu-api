@@ -6,6 +6,7 @@ const facultyRouter = express.Router();
 facultyRouter.get("/api/faculty/:department", async (req, res) => {
     const department = req.params.department;
     try {
+        console.log("Department: ", department);
         await scrap_faculty(department)
             .then((response) => {
                 res.status(200).send({ faculty: response });

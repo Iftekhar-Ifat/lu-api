@@ -3,6 +3,7 @@ const connectToDatabase = require("../../lib/mongodb");
 async function get_result(studentID, studentDate) {
     try {
         const { db } = await connectToDatabase();
+        console.log("MongoDB connected "+db);
         const resultCollection = await db.collection("result");
 
         if (studentDate) {

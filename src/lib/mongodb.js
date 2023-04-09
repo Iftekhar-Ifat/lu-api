@@ -35,6 +35,7 @@ async function connectToDatabase() {
     };
 
     // Connect to cluster
+    console.log("Connecting to MongoDB" + MONGODB_URI);
     const client = await MongoClient.connect(MONGODB_URI, opts);
     console.log("Connected to MongoDB");
     const db = await client.db(MONGODB_DB);

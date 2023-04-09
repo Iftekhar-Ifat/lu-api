@@ -98,6 +98,7 @@ async function scrap_result(studentID, studentDate) {
         });
         return { public: publicResult, private: privateResult };
     } catch (error) {
+        console.log('Catch error in scrap_result.js: ', error);
         return await get_result(studentID, studentDate);
     } finally {
         await browser.close();
