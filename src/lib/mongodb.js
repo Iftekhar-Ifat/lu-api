@@ -1,7 +1,7 @@
 require("dotenv").config;
 const { MongoClient } = require("mongodb");
 
-const MONGO_PASS = encodeURIComponent(process.env.MONGO_PASS);
+const MONGO_PASS = encodeURIComponent(process.env.PASSWORD);
 const MONGODB_URI = process.env.MONGODB_URI.replace('<password>', MONGO_PASS);
 const MONGODB_DB = process.env.DB_NAME;
 
